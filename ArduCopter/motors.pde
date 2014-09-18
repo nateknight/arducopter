@@ -568,6 +568,9 @@ static void servo_write(uint8_t ch, uint16_t pwm)
     #elif (FRAME_CONFIG == HELI_FRAME)
         // Heli's can use RC5, RC6, RC7, not RC8, and higher
         if (ch == CH_5 || ch == CH_6 || ch == CH_7 || ch >= CH_9) servo_ok = true;
+    #elif (FRAME_CONFIG == TRI2_FRAME)
+        // Tri's and Singles can use RC5, RC6, RC8 and higher
+        if (ch == CH_5 || ch == CH_6 || ch >= CH_9) servo_ok = true;
     #else
         // throw compile error if frame type is unrecognise
         #error Unrecognised frame type

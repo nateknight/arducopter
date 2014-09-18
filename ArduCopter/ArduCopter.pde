@@ -465,6 +465,8 @@ static struct {
  #define MOTOR_CLASS AP_MotorsHeli
 #elif FRAME_CONFIG == SINGLE_FRAME
  #define MOTOR_CLASS AP_MotorsSingle
+#elif FRAME_CONFIG == TRI2_FRAME
+ #define MOTOR_CLASS AP_MotorsTri2
 #else
  #error Unrecognised frame type
 #endif
@@ -475,6 +477,8 @@ static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4, &g.rc_7, &g.rc_8, 
 static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4, &g.rc_7);
 #elif FRAME_CONFIG == SINGLE_FRAME  // single constructor requires extra servos for flaps
 static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4, &g.single_servo_1, &g.single_servo_2, &g.single_servo_3, &g.single_servo_4);
+#elif FRAME_CONFIG == TRI2_FRAME  // tri2 constructor requires additional rc_7 and rc_8 arguments to allow yaw servo reversing
+static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4, &g.rc_7, &g.rc_8);
 #else
 static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4);
 #endif

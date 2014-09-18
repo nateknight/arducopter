@@ -205,6 +205,13 @@ void aux_servos_update_fn()
     update_aux_servo_function(&g.rc_5, &g.rc_6, &g.rc_8, &g.rc_10, &g.rc_11);
  #endif
 
+#elif (FRAME_CONFIG == TRI2_FRAME)
+ #if CONFIG_HAL_BOARD == HAL_BOARD_PX4
+    update_aux_servo_function(&g.rc_5, &g.rc_6, &g.rc_9, &g.rc_10, &g.rc_11, &g.rc_12);
+ #else // APM1, APM2, SITL
+    update_aux_servo_function(&g.rc_5, &g.rc_6, &g.rc_10, &g.rc_11);
+ #endif
+
 // Hexa and Y6 can use RC7 and higher
 #elif (FRAME_CONFIG == HEXA_FRAME || FRAME_CONFIG == Y6_FRAME)
  #if CONFIG_HAL_BOARD == HAL_BOARD_PX4

@@ -92,7 +92,7 @@ static NOINLINE void send_heartbeat(mavlink_channel_t chan)
         chan,
 #if (FRAME_CONFIG == QUAD_FRAME)
         MAV_TYPE_QUADROTOR,
-#elif (FRAME_CONFIG == TRI_FRAME)
+#elif (FRAME_CONFIG == TRI_FRAME || FRAME_CONFIG == TRI2_FRAME)
         MAV_TYPE_TRICOPTER,
 #elif (FRAME_CONFIG == HEXA_FRAME || FRAME_CONFIG == Y6_FRAME)
         MAV_TYPE_HEXAROTOR,
