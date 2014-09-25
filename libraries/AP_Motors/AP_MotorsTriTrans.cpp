@@ -28,13 +28,37 @@ extern const AP_HAL::HAL& hal;
 
 const AP_Param::GroupInfo AP_MotorsTriTrans::var_info[] PROGMEM = {
 
-	// @Param: REV_YAW
-    // @DisplayName: Reverse roll feedback 
+	// @Param: REV_LF
+    // @DisplayName: Reverse left front servo
     // @Description: Ensure the feedback is negative
     // @Values: -1:Opposite direction,1:Same direction
-    AP_GROUPINFO("REV_YAW", 8, AP_MotorsTriTrans, _rev_yaw, 1 ),
+    AP_GROUPINFO("REV_LF", 8, AP_MotorsTriTrans, _rev_lf, 1 ),
 
-// TODO: things to add = individual servo output reversing, PID values for elevons (or perhaps those should go in the control area).
+	// @Param: REV_RF
+    // @DisplayName: Reverse right front servo
+    // @Description: Ensure the feedback is negative
+    // @Values: -1:Opposite direction,1:Same direction
+    AP_GROUPINFO("REV_RF", 8, AP_MotorsTriTrans, _rev_rf, 1 ),
+
+	// @Param: REV_REAR
+    // @DisplayName: Reverse rear servo
+    // @Description: Ensure the feedback is negative
+    // @Values: -1:Opposite direction,1:Same direction
+    AP_GROUPINFO("REV_REAR", 8, AP_MotorsTriTrans, _rev_rear, 1 ),
+
+	// @Param: REV_LE
+    // @DisplayName: Reverse left elevon
+    // @Description: Ensure the feedback is negative
+    // @Values: -1:Opposite direction,1:Same direction
+    AP_GROUPINFO("REV_LE", 8, AP_MotorsTriTrans, _rev_le, 1 ),
+
+	// @Param: REV_RE
+    // @DisplayName: Reverse right elevon
+    // @Description: Ensure the feedback is negative
+    // @Values: -1:Opposite direction,1:Same direction
+    AP_GROUPINFO("REV_RE", 8, AP_MotorsTriTrans, _rev_re, 1 ),
+
+// TODO: things to add = PID values for elevons (or perhaps those should go in the control area).
 
     AP_GROUPEND
 };
@@ -170,11 +194,11 @@ void AP_MotorsTriTrans::output_armed()
         motor_out[AP_MOTORS_MOT_3] = _rc_throttle->radio_out + rear_motor_pitch_out;
        
         //left front servo
-        _leftservo->servo_out = -1*_rev_yaw*front_servo_yaw_servo_out + transition_servo_out;
+        _leftservo->servo_out = (-1*_rev_lf*front_servo_yaw_servo_out) + transition_servo_out;
         //right front servo
-        _rightservo->servo_out = _rev_yaw*front_servo_yaw_servo_out + transition_servo_out;
+        _rightservo->servo_out = (_rev_rf*front_servo_yaw_servo_out) + transition_servo_out;
         //rear servo
-        _rearservo->servo_out = _rearservo->radio_min + _rearservo->radio_trim + transition_servo_out;
+        _rearservo->servo_out = _rev_rear* ( -4500 + transition_servo_out );
 
         //left elevon servo
         _leftelevonservo->servo_out = _leftelevonservo->radio_trim;  // This will likely need its own PID values seperate from the motors.

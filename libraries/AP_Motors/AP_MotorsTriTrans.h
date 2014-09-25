@@ -49,8 +49,11 @@ protected:
     virtual void        output_armed();
     virtual void        output_disarmed();
 
-    AP_Int8             _rev_yaw;          // REV yaw feedback
-    AP_Int8             _rev_trans;        // REV rear transition servo
+    AP_Int8             _rev_lf;           // REV left front servo 
+    AP_Int8             _rev_rf;           // REV right front servo 
+    AP_Int8             _rev_rear;         // REV rear servo
+    AP_Int8             _rev_le;           // REV left elevon
+    AP_Int8             _rev_re;           // REV right elevon
     RC_Channel*         _leftservo;        // left front servo controlling yaw and forward transition
     RC_Channel*         _rightservo;       // right front servo controlling yaw and forward transition
     RC_Channel*         _rearservo;        // rear servo controlling forward transition only.
