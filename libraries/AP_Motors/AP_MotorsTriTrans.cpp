@@ -179,6 +179,16 @@ void AP_MotorsTriTrans::output_armed()
         float   front_servo_yaw_factor   = 1.0f;     //  TODO: This will gradually be decreased during transition.
         int16_t front_servo_yaw_servo_out  = (float)_rc_yaw->servo_out * front_servo_yaw_factor;
 
+        float   left_elevon_roll_servo_factor   = 0.5f;     //  TODO: This could gradually be increased from 0 during transition.
+        int16_t left_elevon_roll_servo_out  = (float)_rc_roll->servo_out * left_elevon_roll_servo_factor;
+        float   left_elevon_pitch_servo_factor   = 0.5f;     //  TODO: This could gradually be increased from 0 during transition.
+        int16_t left_elevon_pitch_servo_out  = (float)_rc_pitch->servo_out * left_elevon_pitch_servo_factor;
+
+        float   right_elevon_roll_servo_factor   = 0.5f;     //  TODO: This could gradually be increased from 0 during transition.
+        int16_t right_elevon_roll_servo_out  = (float)_rc_roll->servo_out * right_elevon_roll_servo_factor;
+        float   right_elevon_pitch_servo_factor   = -0.5f;     //  TODO: This could gradually be increased from 0 during transition.
+        int16_t right_elevon_pitch_servo_out  = (float)_rc_pitch->servo_out * right_elevon_pitch_servo_factor;
+
         int16_t transition_servo_out  = 0;  // TODO: This will gradually rotate all three motor servos during transition.
         
         
@@ -201,9 +211,9 @@ void AP_MotorsTriTrans::output_armed()
         _rearservo->servo_out = _rev_rear* ( -4500 + transition_servo_out );
 
         //left elevon servo
-        _leftelevonservo->servo_out = _leftelevonservo->radio_trim;  // This will likely need its own PID values seperate from the motors.
+        _leftelevonservo->servo_out = _rev_le*(left_elevon_pitch_servo_out + left_elevon_roll_servo_out );  // This will likely need its own PID values seperate from the motors.
         //right elevon servo
-        _rightelevonservo->servo_out = _rightelevonservo->radio_trim;  // This will likely need its own PID values seperate from the motors.
+        _rightelevonservo->servo_out = _rev_re*(right_elevon_pitch_servo_out + right_elevon_roll_servo_out );  // This will likely need its own PID values seperate from the motors.
 
         _leftservo->calc_pwm();
         _rightservo->calc_pwm();
