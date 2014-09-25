@@ -13,5 +13,6 @@
 #include "AP_MotorsOctaQuad.h"
 #include "AP_MotorsHeli.h"
 #include "AP_MotorsSingle.h"
+#include "AP_MotorsTriTrans.h"
 
 #endif // __AP_MOTORS_H__
