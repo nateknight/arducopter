@@ -59,7 +59,7 @@ public:
     void        set_pwm(int16_t pwm);
     void        set_pwm_no_deadzone(int16_t pwm);
 
-    // pwm is stored here
+    // direct pwm value input from radio receiver is stored here
     int16_t        radio_in;
 
     // call after first set_pwm
@@ -68,17 +68,20 @@ public:
     // did our read come in 50µs below the min?
     bool        get_failsafe(void);
 
-    // value generated from PWM
+    // value generated from input PWM (radio_in)
+    // Either servo angle (in centi-degrees) or range
     int16_t         control_in;
 
     int16_t         control_mix(float value);
 
     // current values to the servos - degrees * 100 (approx assuming servo is -45 to 45 degrees except [3] is 0 to 100
+    // flight controller calculates and populates this value
     int16_t        servo_out;
 
-    // generate PWM from servo_out value
+    // generate PWM output (pwm_out and radio_out) from servo_out value
     void        calc_pwm(void);
-
+    
+    // These are the PWM values calculated from servo_out
     // PWM is without the offset from radio_min
     int16_t         pwm_out;
     int16_t         radio_out;
@@ -114,10 +117,10 @@ private:
     AP_Int8         _reverse;
     AP_Int16        _dead_zone;
     uint8_t         _type;
-    int16_t         _high;
-    int16_t         _low;
-    int16_t         _high_out;
-    int16_t         _low_out;
+    int16_t         _high;       // Input Range high when using _type RC_CHANNEL_TYPE_RANGE
+    int16_t         _low;        // Input Range low when using _type RC_CHANNEL_TYPE_RANGE
+    int16_t         _high_out;   // Output Range high when using _type RC_CHANNEL_TYPE_RANGE
+    int16_t         _low_out;    // Outout Range low when using _type RC_CHANNEL_TYPE_RANGE
     uint8_t         _ch_out;
 
     static RC_Channel *rc_ch[RC_MAX_CHANNELS];

@@ -215,6 +215,10 @@ void AP_MotorsTriTrans::output_armed()
         //right elevon servo
         _rightelevonservo->servo_out = _rev_re*(right_elevon_pitch_servo_out + right_elevon_roll_servo_out );  // This will likely need its own PID values seperate from the motors.
 
+        // DEBUG 
+        // try hal.console->printf( "pso: %d\n", _rc_pitch->servo_out );
+        // or try cliSerial->printf_P(PSTR())
+        
         _leftservo->calc_pwm();
         _rightservo->calc_pwm();
         _rearservo->calc_pwm();
