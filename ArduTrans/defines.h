@@ -115,20 +115,33 @@
 
 // Auto Pilot modes
 // ----------------
-#define STABILIZE 0                     // hold level position
-#define ACRO 1                          // rate control
-#define ALT_HOLD 2                      // AUTO control
-#define AUTO 3                          // AUTO control
-#define GUIDED 4                        // AUTO control
-#define LOITER 5                        // Hold a single location
-#define RTL 6                           // AUTO control
-#define CIRCLE 7                        // AUTO control
-#define POSITION 8                      // AUTO control
-#define LAND 9                          // AUTO control
-#define OF_LOITER 10                    // Hold a single location using optical flow sensor
-#define DRIFT 11                        // DRIFT mode (Note: 12 is no longer used)
-#define SPORT 13                        // earth frame rate control
-#define NUM_MODES 14
+#define STABILIZE 0               // hold level position
+#define ACRO 1                    // rate control
+#define ALT_HOLD 2                // AUTO control
+#define AUTO 3                    // AUTO control
+#define GUIDED 4                  // AUTO control
+#define LOITER 5                  // Hold a single location
+#define RTL 6                     // AUTO control
+#define CIRCLE 7                  // AUTO control
+#define POSITION 8                // AUTO control
+#define LAND 9                    // AUTO control
+#define OF_LOITER 10              // Hold a single location using optical flow sensor
+#define DRIFT 11                  // DRIFT mode (Note: 12 is no longer used)
+#define SPORT 13                  // earth frame rate control
+#define PLANE_MANUAL 14           // no stabilization
+#define PLANE_CIRCLE 15           // wide circle
+#define PLANE_STABILIZE 16        // simple return to level
+#define PLANE_TRAINING 17         // roll and pitch limiting
+#define PLANE_ACRO 18             // rate control with attitude lock
+#define PLANE_FLY_BY_WIRE_A 19    // attitude control with no altitude hold
+#define PLANE_FLY_BY_WIRE_B 20    // attitude control with altitude hold
+#define PLANE_CRUISE 21           // heading hold
+#define PLANE_AUTO 22             // waypoint following
+#define PLANE_RTL 23              // return to launch, then loiter
+#define PLANE_LOITER 24           // circle around point
+#define PLANE_GUIDED 25           // fly to point
+#define PLANE_INITIALISING 26      
+#define NUM_MODES 27
 
 
 // CH_6 Tuning

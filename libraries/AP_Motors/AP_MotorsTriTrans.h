@@ -16,13 +16,14 @@ class AP_MotorsTriTrans : public AP_Motors {
 public:
 
     /// Constructor
-    AP_MotorsTriTrans( RC_Channel* rc_roll, RC_Channel* rc_pitch, RC_Channel* rc_throttle, RC_Channel* rc_yaw, RC_Channel* leftservo, RC_Channel* rightservo, RC_Channel* rearservo, RC_Channel* leftelevonservo, RC_Channel* rightelevonservo, uint16_t speed_hz = AP_MOTORS_SPEED_DEFAULT) :
+    AP_MotorsTriTrans( RC_Channel* rc_roll, RC_Channel* rc_pitch, RC_Channel* rc_throttle, RC_Channel* rc_yaw, RC_Channel* leftservo, RC_Channel* rightservo, RC_Channel* rearservo, RC_Channel* leftelevonservo, RC_Channel* rightelevonservo, AP_Float* transition_state, uint16_t speed_hz = AP_MOTORS_SPEED_DEFAULT) :
         AP_Motors(rc_roll, rc_pitch, rc_throttle, rc_yaw, speed_hz),
         _leftservo(leftservo),
         _rightservo(rightservo),
         _rearservo(rearservo),
         _leftelevonservo(leftelevonservo),
-        _rightelevonservo(rightelevonservo) 
+        _rightelevonservo(rightelevonservo),
+        _transition_state(transition_state) 
     {
     };
 
@@ -49,6 +50,8 @@ protected:
     virtual void        output_armed();
     virtual void        output_disarmed();
 
+    AP_Float*           _transition_state; // State of transition
+    
     AP_Int8             _rev_lf;           // REV left front servo 
     AP_Int8             _rev_rf;           // REV right front servo 
     AP_Int8             _rev_rear;         // REV rear servo
@@ -59,6 +62,7 @@ protected:
     RC_Channel*         _rearservo;        // rear servo controlling forward transition only.
     RC_Channel*         _leftelevonservo;  // left elevon servo
     RC_Channel*         _rightelevonservo; // right elevno servo
+
 };
 
 #endif  // AP_MOTORSTRI

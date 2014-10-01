@@ -345,6 +345,11 @@ static bool mode_requires_GPS(uint8_t mode) {
         case CIRCLE:
         case POSITION:
         case DRIFT:
+        case PLANE_CRUISE:
+        case PLANE_AUTO:
+        case PLANE_RTL:
+        case PLANE_LOITER:
+        case PLANE_GUIDED:
             return true;
         default:
             return false;
@@ -358,6 +363,34 @@ static bool manual_flight_mode(uint8_t mode) {
     switch(mode) {
         case ACRO:
         case STABILIZE:
+        case DRIFT:
+        case SPORT:
+        case PLANE_MANUAL:
+        case PLANE_STABILIZE:
+        case PLANE_TRAINING:
+        case PLANE_ACRO:
+        case PLANE_FLY_BY_WIRE_A:
+            return true;
+        default:
+            return false;
+    }
+
+    return false;
+}
+
+static bool hover_flight_mode(uint8_t mode) {
+    switch(mode) {
+        case STABILIZE:
+        case ACRO:
+        case ALT_HOLD:
+        case AUTO:
+        case GUIDED:
+        case LOITER:
+        case RTL:
+        case CIRCLE:
+        case POSITION:
+        case LAND:
+        case OF_LOITER:
         case DRIFT:
         case SPORT:
             return true;
@@ -499,6 +532,22 @@ static bool set_mode(uint8_t mode)
             control_yaw = ahrs.yaw_sensor;
             break;
 
+        case PLANE_ACRO:
+            success = true;
+            set_yaw_mode(ACRO_YAW);
+            set_roll_pitch_mode(ACRO_RP);
+            set_throttle_mode(ACRO_THR);
+            set_nav_mode(NAV_NONE);
+            break;
+            
+        case PLANE_FLY_BY_WIRE_A:
+            success = true;
+            set_yaw_mode(STABILIZE_YAW);
+            set_roll_pitch_mode(STABILIZE_RP);
+            set_throttle_mode(ACRO_THR);
+            set_nav_mode(NAV_NONE);
+            break;
+            
         default:
             success = false;
             break;
@@ -645,6 +694,13 @@ print_flight_mode(AP_HAL::BetterStream *port, uint8_t mode)
     case SPORT:
         port->print_P(PSTR("SPORT"));
         break;
+    case PLANE_ACRO:
+        port->print_P(PSTR("PLANE_ACRO"));
+        break;
+    case PLANE_FLY_BY_WIRE_A:
+        port->print_P(PSTR("PLANE_FLY_BY_WIRE_A"));
+        break;
+
     default:
         port->printf_P(PSTR("Mode(%u)"), (unsigned)mode);
         break;

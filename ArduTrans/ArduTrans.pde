@@ -1,6 +1,6 @@
 /// -*- tab-width: 4; Mode: C++; c-basic-offset: 4; indent-tabs-mode: nil -*-
 
-#define THISFIRMWARE "ArduCopter V3.1.5"
+#define THISFIRMWARE "ArduTrans V3.1.5"
 /*
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -130,6 +130,7 @@
 #include <AP_Notify.h>          // Notify library
 #include <AP_BattMonitor.h>     // Battery monitor library
 #include <AP_BoardConfig.h>     // board configuration library
+#include <AP_Transition.h>      // transitional flight library      
 #if SPRAYER == ENABLED
 #include <AC_Sprayer.h>         // crop sprayer library
 #endif
@@ -304,7 +305,10 @@ AP_GPS_None     g_gps_driver;
   #error Unrecognised GPS_PROTOCOL setting.
  #endif // GPS PROTOCOL
 
+
 static AP_AHRS_DCM ahrs(ins, g_gps);
+
+static AP_Transition transition( g.transition_state );
 
 #elif HIL_MODE == HIL_MODE_SENSORS
 // sensor emulators
@@ -477,8 +481,8 @@ static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4, &g.rc_7, &g.rc_8, 
 static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4, &g.rc_7);
 #elif FRAME_CONFIG == SINGLE_FRAME  // single constructor requires extra servos for flaps
 static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4, &g.single_servo_1, &g.single_servo_2, &g.single_servo_3, &g.single_servo_4);
-#elif FRAME_CONFIG == TRITRANS_FRAME  // tritrans constructor requires additional arguments for motor and elevon servos
-static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4, &g.rc_5, &g.rc_6, &g.rc_7, &g.rc_8, &g.rc_10 );
+#elif FRAME_CONFIG == TRITRANS_FRAME  // tritrans constructor requires additional arguments for motor and elevon servos and transition state
+static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4, &g.rc_5, &g.rc_6, &g.rc_7, &g.rc_8, &g.rc_10, g.transition_state );
 #else
 static MOTOR_CLASS motors(&g.rc_1, &g.rc_2, &g.rc_3, &g.rc_4);
 #endif
@@ -862,6 +866,7 @@ static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
     { three_hz_loop,        33,      90 },
     { compass_accumulate,    2,     420 },
     { barometer_accumulate,  2,     250 },
+    { manage_transition,     2,     250 },
 #if FRAME_CONFIG == HELI_FRAME
     { check_dynamic_flight,  2,     100 },
 #endif
@@ -924,6 +929,11 @@ static void compass_accumulate(void)
 static void barometer_accumulate(void)
 {
     barometer.accumulate();
+}
+
+static void manage_transition(void)
+{
+    transition.update( hover_flight_mode( control_mode ) );
 }
 
 static void perf_update(void)

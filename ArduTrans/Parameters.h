@@ -380,6 +380,8 @@ public:
     RC_Channel      single_servo_1, single_servo_2, single_servo_3, single_servo_4;     // servos for four flaps
 #endif
 
+    AP_Float*               transition_state;
+
     // RC channels
     RC_Channel              rc_1;
     RC_Channel              rc_2;
