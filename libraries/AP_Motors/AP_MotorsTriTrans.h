@@ -50,7 +50,15 @@ protected:
     virtual void        output_armed();
     virtual void        output_disarmed();
 
-    AP_Float*           _transition_state; // State of transition
+    AP_Float*           _transition_state;      // State of transition
+    
+    AP_Int16            _hover_servo_center_lf; // Center position in centidegrees of left front servo while in hover mode
+    AP_Int16            _hover_servo_center_rf; // Center position in centidegrees of right front servo while in hover mode
+    AP_Int16            _hover_servo_range;     // Range of motion in centidegrees of front servos while in hover mode
+
+    AP_Int16            _plane_servo_center_lf; // Center position in centidegrees of left front servo while in plane mode
+    AP_Int16            _plane_servo_center_rf; // Center position in centidegrees of right front servo while in plane mode
+    AP_Int16            _plane_servo_range;     // Range of motion in centidegrees of front servos while in plane mode
     
     AP_Int8             _rev_lf;           // REV left front servo 
     AP_Int8             _rev_rf;           // REV right front servo 
