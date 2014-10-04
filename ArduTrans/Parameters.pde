@@ -1170,6 +1170,13 @@ const AP_Param::Info var_info[] PROGMEM = {
     // @Path: ../libraries/AP_Motors/AP_MotorsSingle.cpp
     GOBJECT(motors, "MOT_",           AP_MotorsSingle),
 
+#elif FRAME_CONFIG == TRITRANS_FRAME
+    // @Group: MOT_
+    // @Path: ../libraries/AP_Motors/AP_Motors_Class.cpp
+    GOBJECT(motors, "MOT_",         AP_Motors),
+    // @Group: TRANS_
+    // @Path: ../libraries/AP_Motors/AP_MotorsTriTrans.cpp
+    GOBJECT(motors, "TRANS_",         AP_MotorsTriTrans),
 #else
     // @Group: MOT_
     // @Path: ../libraries/AP_Motors/AP_Motors_Class.cpp
