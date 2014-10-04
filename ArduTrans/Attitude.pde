@@ -494,6 +494,9 @@ run_rate_controllers()
     g.rc_1.servo_out = get_rate_roll(roll_rate_target_bf);
     g.rc_2.servo_out = get_rate_pitch(pitch_rate_target_bf);
     g.rc_4.servo_out = get_rate_yaw(yaw_rate_target_bf);
+    // elevons get their own rate controllers
+    g.rc_8.servo_out = get_rate_roll_el(roll_rate_target_bf);
+    g.rc_10.servo_out = get_rate_pitch_el(pitch_rate_target_bf);
 #endif
 
     // run throttle controller if accel based throttle controller is enabled and active (active means it has been given a target)
@@ -599,6 +602,74 @@ get_rate_yaw(int32_t target_rate)
     // constrain output
     return output;
 }
+
+static int16_t
+get_rate_roll_el(int32_t target_rate)
+{
+    int32_t p,i,d;                  // used to capture pid values for logging
+    int32_t current_rate;           // this iteration's rate
+    int32_t rate_error;             // simply target_rate - current_rate
+    int32_t output;                 // output from pid controller
+
+    // get current rate
+    current_rate    = (omega.x * DEGX100);
+
+    // call pid controller
+    rate_error  = target_rate - current_rate;
+    p           = g.pid_rate_roll_el.get_p(rate_error);
+
+    // get i term
+    i = g.pid_rate_roll_el.get_integrator();
+
+    // update i term as long as we haven't breached the limits or the I term will certainly reduce
+    if (!motors.limit.roll_pitch || ((i>0&&rate_error<0)||(i<0&&rate_error>0))) {
+        i = g.pid_rate_roll_el.get_i(rate_error, G_Dt);
+    }
+
+    d = g.pid_rate_roll_el.get_d(rate_error, G_Dt);
+    output = p + i + d;
+
+    // constrain output
+    output = constrain_int32(output, -5000, 5000);
+
+    // output control
+    return output;
+}
+
+static int16_t
+get_rate_pitch_el(int32_t target_rate)
+{
+    int32_t p,i,d;                                                                      // used to capture pid values for logging
+    int32_t current_rate;                                                       // this iteration's rate
+    int32_t rate_error;                                                                 // simply target_rate - current_rate
+    int32_t output;                                                                     // output from pid controller
+
+    // get current rate
+    current_rate    = (omega.y * DEGX100);
+
+    // call pid controller
+    rate_error      = target_rate - current_rate;
+    p               = g.pid_rate_pitch_el.get_p(rate_error);
+
+    // get i term
+    i = g.pid_rate_pitch_el.get_integrator();
+
+    // update i term as long as we haven't breached the limits or the I term will certainly reduce
+    if (!motors.limit.roll_pitch || ((i>0&&rate_error<0)||(i<0&&rate_error>0))) {
+        i = g.pid_rate_pitch_el.get_i(rate_error, G_Dt);
+    }
+
+    d = g.pid_rate_pitch_el.get_d(rate_error, G_Dt);
+    output = p + i + d;
+
+    // constrain output
+    output = constrain_int32(output, -5000, 5000);
+
+    // output control
+    return output;
+}
+
+
 #endif // !HELI_FRAME
 
 // calculate modified roll/pitch depending upon optical flow calculated position
@@ -1219,6 +1290,8 @@ static void reset_rate_I()
     g.pid_rate_roll.reset_I();
     g.pid_rate_pitch.reset_I();
     g.pid_rate_yaw.reset_I();
+    g.pid_rate_roll_el.reset_I();
+    g.pid_rate_pitch_el.reset_I();
 }
 
 static void reset_optflow_I(void)

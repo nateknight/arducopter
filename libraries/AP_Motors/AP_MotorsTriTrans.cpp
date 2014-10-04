@@ -191,7 +191,11 @@ void AP_MotorsTriTrans::output_armed()
     int16_t elevon_pitch_servo_out;           // Pitch input scaled by the elevons' contribution.   
 
     int16_t servo_range, left_servo_center, right_servo_center; // Range and center of front servos, based upon transition state.
-
+    
+    // We use the elevon channels to hold our elevon rate controller data
+    RC_Channel*         rc_elevon_roll = _leftelevonservo;
+    RC_Channel*         rc_elevon_pitch = _rightelevonservo;
+    
     // initialize limits flag
     limit.roll_pitch = false;
     limit.yaw = false;
@@ -232,8 +236,10 @@ void AP_MotorsTriTrans::output_armed()
     rear_motor_roll_out       = (int16_t)( (float)_rc_roll->pwm_out * rear_motor_roll_factor );
     rear_motor_pitch_out      = (int16_t)( (float)_rc_pitch->pwm_out * rear_motor_pitch_factor );
     front_servo_yaw_servo_out = (int16_t)( (float)_rc_yaw->servo_out * front_servo_yaw_factor );
-    elevon_roll_servo_out     = (int16_t)( (float)_rc_roll->servo_out * elevon_roll_servo_factor );
-    elevon_pitch_servo_out    = (int16_t)( (float)_rc_pitch->servo_out * elevon_pitch_servo_factor );
+    //elevon_roll_servo_out     = (int16_t)( (float)_rc_roll->servo_out * elevon_roll_servo_factor );
+    //elevon_pitch_servo_out    = (int16_t)( (float)_rc_pitch->servo_out * elevon_pitch_servo_factor );
+    elevon_roll_servo_out     = (int16_t)( (float)rc_elevon_roll->servo_out * elevon_roll_servo_factor );
+    elevon_pitch_servo_out    = (int16_t)( (float)rc_elevon_pitch->servo_out * elevon_pitch_servo_factor );
 
     // check if throttle is below limit
     if (_rc_throttle->radio_out <= out_min_pwm) {

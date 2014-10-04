@@ -700,6 +700,66 @@ const AP_Param::Info var_info[] PROGMEM = {
     // @User: Standard
     GGROUP(pid_rate_yaw,      "RATE_YAW_", AC_PID),
 
+    // @Param: RATE_RLL_EL_P
+    // @DisplayName: Roll axis rate controller P gain
+    // @Description: Roll axis rate controller P gain.  Converts the difference between desired roll rate and actual roll rate into a motor speed output
+    // @Range: 0.08 0.20
+    // @Increment: 0.005
+    // @User: Standard
+
+    // @Param: RATE_RLL_EL_I
+    // @DisplayName: Roll axis rate controller I gain
+    // @Description: Roll axis rate controller I gain.  Corrects long-term difference in desired roll rate vs actual roll rate
+    // @Range: 0.01 0.5
+    // @Increment: 0.01
+    // @User: Standard
+
+    // @Param: RATE_RLL_EL_IMAX
+    // @DisplayName: Roll axis rate controller I gain maximum
+    // @Description: Roll axis rate controller I gain maximum.  Constrains the maximum motor output that the I gain will output
+    // @Range: 0 500
+    // @Increment: 10
+    // @Units: Percent*10
+    // @User: Standard
+
+    // @Param: RATE_RLL_EL_D
+    // @DisplayName: Roll axis rate controller D gain
+    // @Description: Roll axis rate controller D gain.  Compensates for short-term change in desired roll rate vs actual roll rate
+    // @Range: 0.001 0.02
+    // @Increment: 0.001
+    // @User: Standard
+    GGROUP(pid_rate_roll_el,  "RATE_RLL_EL_", AC_PID),
+
+    // @Param: RATE_PIT_EL_P
+    // @DisplayName: Pitch axis rate controller P gain
+    // @Description: Pitch axis rate controller P gain.  Converts the difference between desired pitch rate and actual pitch rate into a motor speed output
+    // @Range: 0.08 0.20
+    // @Increment: 0.005
+    // @User: Standard
+
+    // @Param: RATE_PIT_EL_I
+    // @DisplayName: Pitch axis rate controller I gain
+    // @Description: Pitch axis rate controller I gain.  Corrects long-term difference in desired pitch rate vs actual pitch rate
+    // @Range: 0.01 0.5
+    // @Increment: 0.01
+    // @User: Standard
+
+    // @Param: RATE_PIT_EL_IMAX
+    // @DisplayName: Pitch axis rate controller I gain maximum
+    // @Description: Pitch axis rate controller I gain maximum.  Constrains the maximum motor output that the I gain will output
+    // @Range: 0 500
+    // @Increment: 10
+    // @Units: Percent*10
+    // @User: Standard
+
+    // @Param: RATE_PIT_EL_D
+    // @DisplayName: Pitch axis rate controller D gain
+    // @Description: Pitch axis rate controller D gain.  Compensates for short-term change in desired pitch rate vs actual pitch rate
+    // @Range: 0.001 0.02
+    // @Increment: 0.001
+    // @User: Standard
+    GGROUP(pid_rate_pitch_el, "RATE_PIT_EL_", AC_PID),
+
     // @Param: LOITER_LAT_P
     // @DisplayName: Loiter latitude rate controller P gain
     // @Description: Loiter latitude rate controller P gain.  Converts the difference between desired speed and actual speed into a lean angle in the latitude direction

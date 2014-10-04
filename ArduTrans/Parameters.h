@@ -261,6 +261,8 @@ public:
         k_param_pid_rate_roll,
         k_param_pid_rate_pitch,
         k_param_pid_rate_yaw,
+        k_param_pid_rate_roll_el,
+        k_param_pid_rate_pitch_el,
         k_param_pi_stabilize_roll,
         k_param_pi_stabilize_pitch,
         k_param_pi_stabilize_yaw,
@@ -413,6 +415,8 @@ public:
     AC_PID                  pid_rate_roll;
     AC_PID                  pid_rate_pitch;
     AC_PID                  pid_rate_yaw;
+    AC_PID                  pid_rate_roll_el;
+    AC_PID                  pid_rate_pitch_el;
     AC_PID                  pid_loiter_rate_lat;
     AC_PID                  pid_loiter_rate_lon;
 
@@ -468,6 +472,8 @@ public:
         pid_rate_roll           (RATE_ROLL_P,           RATE_ROLL_I,            RATE_ROLL_D,            RATE_ROLL_IMAX),
         pid_rate_pitch          (RATE_PITCH_P,          RATE_PITCH_I,           RATE_PITCH_D,           RATE_PITCH_IMAX),
         pid_rate_yaw            (RATE_YAW_P,            RATE_YAW_I,             RATE_YAW_D,             RATE_YAW_IMAX),
+        pid_rate_roll_el        (RATE_ROLL_P,           RATE_ROLL_I,            RATE_ROLL_D,            RATE_ROLL_IMAX),
+        pid_rate_pitch_el       (RATE_PITCH_P,          RATE_PITCH_I,           RATE_PITCH_D,           RATE_PITCH_IMAX),
 
         pid_loiter_rate_lat     (LOITER_RATE_P,         LOITER_RATE_I,          LOITER_RATE_D,          LOITER_RATE_IMAX),
         pid_loiter_rate_lon     (LOITER_RATE_P,         LOITER_RATE_I,          LOITER_RATE_D,          LOITER_RATE_IMAX),
