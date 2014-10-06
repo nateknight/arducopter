@@ -29,67 +29,67 @@ extern const AP_HAL::HAL& hal;
 
 const AP_Param::GroupInfo AP_MotorsTriTrans::var_info[] PROGMEM = {
 
-	// @Param: REV_LF
+	  // @Param: REV_LF
     // @DisplayName: Reverse left front servo
     // @Description: Ensure the feedback is negative
     // @Values: -1:Opposite direction,1:Same direction
     AP_GROUPINFO("REV_LF", 1, AP_MotorsTriTrans, _rev_lf, 1 ),
 
-	// @Param: REV_RF
+	  // @Param: REV_RF
     // @DisplayName: Reverse right front servo
     // @Description: Ensure the feedback is negative
     // @Values: -1:Opposite direction,1:Same direction
     AP_GROUPINFO("REV_RF", 2, AP_MotorsTriTrans, _rev_rf, 1 ),
 
-	// @Param: REV_REAR
+	  // @Param: REV_REAR
     // @DisplayName: Reverse rear servo
     // @Description: Ensure the feedback is negative
     // @Values: -1:Opposite direction,1:Same direction
     AP_GROUPINFO("REV_REAR", 3, AP_MotorsTriTrans, _rev_rear, 1 ),
 
-	// @Param: REV_LE
+	  // @Param: REV_LE
     // @DisplayName: Reverse left elevon
     // @Description: Ensure the feedback is negative
     // @Values: -1:Opposite direction,1:Same direction
     AP_GROUPINFO("REV_LE", 4, AP_MotorsTriTrans, _rev_le, 1 ),
 
-	// @Param: REV_RE
+	  // @Param: REV_RE
     // @DisplayName: Reverse right elevon
     // @Description: Ensure the feedback is negative
     // @Values: -1:Opposite direction,1:Same direction
     AP_GROUPINFO("REV_RE", 5, AP_MotorsTriTrans, _rev_re, 1 ),
 
-	// @Param: HOV_SVO_CEN_LF
+	  // @Param: HOV_SVO_CEN_LF
     // @DisplayName: LF Servo Center Position when in hover mode
     // @Description: Position around which servo will pivot for yaw control in hover mode.  In Degrees
     // @Values: 0-45
     AP_GROUPINFO("H_CEN_LF", 6, AP_MotorsTriTrans, _hover_servo_center_lf, 3500 ),
 
-	// @Param: HOV_SVO_CEN_RF
+	  // @Param: HOV_SVO_CEN_RF
     // @DisplayName: RF Servo Center Position when in hover mode
     // @Description: Position around which servo will pivot for yaw control in hover mode.  In Degrees
     // @Values: 0-45
     AP_GROUPINFO("H_CEN_RF", 7, AP_MotorsTriTrans, _hover_servo_center_rf, 3500 ),
 
-	// @Param: HOV_SVO_RANGE
+	  // @Param: HOV_SVO_RANGE
     // @DisplayName: Servo range of motion when in hover mode
     // @Description: Range that servo will pivot for yaw control in hover mode.  In Degrees
     // @Values: 0-45
     AP_GROUPINFO("H_RANGE", 8, AP_MotorsTriTrans, _hover_servo_range, 2000 ),
 
-	// @Param: PLA_SVO_CEN_LF
+	  // @Param: PLA_SVO_CEN_LF
     // @DisplayName: LF Servo Center Position when in plane mode
     // @Description: Position around which servo will pivot for yaw control in plane mode.  In Degrees
     // @Values: 0-45
     AP_GROUPINFO("P_CEN_LF", 9, AP_MotorsTriTrans, _plane_servo_center_lf, 3500 ),
 
-	// @Param: PLA_SVO_CEN_RF
+	  // @Param: PLA_SVO_CEN_RF
     // @DisplayName: RF Servo Center Position when in plane mode
     // @Description: Position around which servo will pivot for yaw control in plane mode.  In Degrees
     // @Values: 0-45
     AP_GROUPINFO("P_CEN_RF", 10, AP_MotorsTriTrans, _plane_servo_center_rf, 3500 ),
 
-	// @Param: PLA_SVO_RANGE
+	  // @Param: PLA_SVO_RANGE
     // @DisplayName: Servo range of motion when in plane mode
     // @Description: Range that servo will pivot for yaw control in plane mode.  In Degrees
     // @Values: 0-45
