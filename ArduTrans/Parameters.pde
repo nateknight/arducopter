@@ -1174,9 +1174,9 @@ const AP_Param::Info var_info[] PROGMEM = {
     // @Group: MOT_
     // @Path: ../libraries/AP_Motors/AP_Motors_Class.cpp
     GOBJECT(motors, "MOT_",         AP_Motors),
-    // @Group: TRANS_
+    // @Group: TNS_
     // @Path: ../libraries/AP_Motors/AP_MotorsTriTrans.cpp
-    GOBJECT(motors, "TRANS_",         AP_MotorsTriTrans),
+    GOBJECT(motors, "TNS_",         AP_MotorsTriTrans),
 #else
     // @Group: MOT_
     // @Path: ../libraries/AP_Motors/AP_Motors_Class.cpp

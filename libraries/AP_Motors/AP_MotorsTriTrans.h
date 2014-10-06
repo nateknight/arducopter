@@ -25,6 +25,7 @@ public:
         _rightelevonservo(rightelevonservo),
         _transition_state(transition_state) 
     {
+        AP_Param::setup_object_defaults(this, var_info);
     };
 
     // init
