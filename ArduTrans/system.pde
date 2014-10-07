@@ -694,11 +694,42 @@ print_flight_mode(AP_HAL::BetterStream *port, uint8_t mode)
     case SPORT:
         port->print_P(PSTR("SPORT"));
         break;
+
+    case PLANE_MANUAL:
+        port->print_P(PSTR("PLANE_MANUAL"));
+        break;
+    case PLANE_CIRCLE:
+        port->print_P(PSTR("PLANE_CIRCLE"));
+        break;
+    case PLANE_STABILIZE:
+        port->print_P(PSTR("PLANE_STABILIZE"));
+        break;
+    case PLANE_TRAINING:
+        port->print_P(PSTR("PLANE_TRAINING"));
+        break;
     case PLANE_ACRO:
         port->print_P(PSTR("PLANE_ACRO"));
         break;
     case PLANE_FLY_BY_WIRE_A:
         port->print_P(PSTR("PLANE_FLY_BY_WIRE_A"));
+        break;
+    case PLANE_FLY_BY_WIRE_B:
+        port->print_P(PSTR("PLANE_FLY_BY_WIRE_B"));
+        break;
+    case PLANE_CRUISE:
+        port->print_P(PSTR("PLANE_CRUISE"));
+        break;
+    case PLANE_AUTO:
+        port->print_P(PSTR("PLANE_AUTO"));
+        break;
+    case PLANE_RTL:
+        port->print_P(PSTR("PLANE_RTL"));
+        break;
+    case PLANE_LOITER:
+        port->print_P(PSTR("PLANE_LOITER"));
+        break;
+    case PLANE_GUIDED:
+        port->print_P(PSTR("PLANE_GUIDED"));
         break;
 
     default:
